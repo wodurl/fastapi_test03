@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>templates/post/list.html</title>
+</head>
+<body>
+    <div class="container">
+        <a href="post/new">새 글 작성</a>
+        <h3> 글 목록데스</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>작성자</th>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>작성일</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in post %}
+                <tr>
+                    <td>{{ p.num }}</td>
+                    <td>{{ p.writer }}</td>
+                    <td>{{ p.title }}</td>
+                    <td>{{ p.content }}</td>
+                    <td>{{ p.created_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <a href="/">홈으로 돌아가기</a>
+    </div>
+</body>
+</html>
