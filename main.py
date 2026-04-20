@@ -19,7 +19,7 @@ def indexs(request: Request):
         request=request,
         name="index.html",
         context={
-            "fortuneToday":"이번달 안에 귀인을 만나용"
+            "fortuneToday":"이번달 안에 귀인을 만나"
         }
     )
 
@@ -61,4 +61,16 @@ def postNew(writer: str = Form(...), title: str = Form(...), content: str = Form
     db.commit()
 
     # 틀린 경로로 요청을 다시 하도록 리다이렉트 응답을 준다.
+    return RedirectResponse("/posts", status_code=302)
+
+@app.post("/post/delete")
+def postDelete(num: int = Form(...), db: Session = Depends(get_db)):
+    # 삭제 SQL (RAW Query)
+    query = text("""
+        DELETE FROM post
+        WHERE num = :num
+    """)
+    db.execute(query, {"num": num})
+    db.commit()
+
     return RedirectResponse("/posts", status_code=302)

@@ -8,7 +8,7 @@
 <body>
     <div class="container">
         <a href="post/new">새 글 작성</a>
-        <h3> 글 목록데스</h3>
+        <h3> 글 목록</h3>
         <table border="1">
             <thead>
                 <tr>
@@ -17,6 +17,7 @@
                     <th>제목</th>
                     <th>내용</th>
                     <th>작성일</th>
+                    <th>삭제</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,14 @@
                     <td>{{ p.title }}</td>
                     <td>{{ p.content }}</td>
                     <td>{{ p.created_at }}</td>
+                    <td>
+                        <form action="/post/delete" method="post" style="display:inline;">
+                            <input type="hidden" name="num" value="{{ p.num }}">
+                            <button type="submit" onclick="return confirm('삭제할까요?')">
+                                삭제
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
