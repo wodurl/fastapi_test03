@@ -17,6 +17,7 @@
                     <th>제목</th>
                     <th>내용</th>
                     <th>작성일</th>
+                    <th>수정</th>
                     <th>삭제</th>
                 </tr>
             </thead>
@@ -28,6 +29,9 @@
                     <td>{{ p.title }}</td>
                     <td>{{ p.content }}</td>
                     <td>{{ p.created_at }}</td>
+                    <td>
+                        <a href="posts/edit/{{ p.num }}">수정</a>
+                    </td>
                     <td>
                         <form action="/posts/delete" method="post" style="display:inline;">
                             <input type="hidden" name="num" value="{{ p.num }}">
