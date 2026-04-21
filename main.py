@@ -114,6 +114,6 @@ def edit(request: Request, num: int, title: str = Form(...), content: str = Form
         name="post/alert.html",
         context={
             "msg":"글 정보를 수정 했습니다!",
-            "url":"/post"
+            "url":"/posts"
         }
     )
