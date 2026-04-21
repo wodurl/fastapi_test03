@@ -30,7 +30,7 @@
                     <td>{{ p.content }}</td>
                     <td>{{ p.created_at }}</td>
                     <td>
-                        <a href="posts/edit">수정</a>
+                        <a href="posts/edit/{{ p.num }}">수정</a>
                     </td>
                     <td>
                         <form action="/posts/delete" method="post" style="display:inline;">
