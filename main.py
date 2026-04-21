@@ -44,12 +44,12 @@ def getPosts(request: Request, db: Session = Depends(get_db)):
         }
     )
 
-@app.get("/post/new", response_class=HTMLResponse)
+@app.get("/posts/new", response_class=HTMLResponse)
 def postNewForm(request: Request):
     return templates.TemplateResponse(request=request, name="post/new-form.html")
     
-@app.post("/post/new")
-def postNew(writer: str = Form(...), title: str = Form(...), content: str = Form(...),
+@app.post("/posts/new")
+def postNew(request: Request, writer: str = Form(...), title: str = Form(...), content: str = Form(...),
             db: Session = Depends(get_db)):
     # DB에 저장할 SQL문 준비
     query = text("""
@@ -61,9 +61,17 @@ def postNew(writer: str = Form(...), title: str = Form(...), content: str = Form
     db.commit()
 
     # 틀린 경로로 요청을 다시 하도록 리다이렉트 응답을 준다.
-    return RedirectResponse("/posts", status_code=302)
+    return templates.TemplateResponse(
+        request=request,
+        name="post/alert.html",
+        context={
+            "msg":"글 정보를 추가했습니다",
+            "url":"/post"
+        }
+    )
+    # return RedirectResponse("/posts", status_code=302)
 
-@app.post("/post/delete")
+@app.post("/posts/delete")
 def postDelete(num: int = Form(...), db: Session = Depends(get_db)):
     # 삭제 SQL (RAW Query)
     query = text("""
